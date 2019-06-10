@@ -22,11 +22,12 @@ public abstract class AbstractPage {
 		this.bot = bot;
 		init(bot);
 	}
-	
+
 	private void init(ActionBot bot) {
+		report.step("In " + this.getClass().getSimpleName());
 		bot.takeScreenshot("In " + this.getClass().getSimpleName() + " page");
 		assertInPage();
-		
+
 	}
 
 	protected abstract void assertInPage();

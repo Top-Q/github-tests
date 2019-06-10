@@ -27,19 +27,19 @@ public class ActionBot {
 	}
 
 	public ActionBot clickOn(By by) {
-		report("click", by);
+		report("click on", by);
 		driver.findElement(by).click();
 		return this;
 	}
 
 	public ActionBot typeTo(By by, String keys) {
-		report("type to " + keys, by);
+		report("type to", by);
 		driver.findElement(by).sendKeys(keys);
 		return this;
 	}
 
 	public ActionBot typeTo(By by, Keys keys) {
-		report("type to " + keys, by);
+		report("type to" + keys, by);
 		driver.findElement(by).sendKeys(keys);
 		return this;
 	}
@@ -50,7 +50,7 @@ public class ActionBot {
 	}
 
 	public ActionBot waitForVisible(By by) {
-		report("wait for visibility", by);
+		report("wait for visibility of", by);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(by));
 		return this;
 	}
@@ -67,7 +67,7 @@ public class ActionBot {
 
 	private void report(String action, By by) {
 		if (by instanceof DescriptiveBy) {
-			report.log("About to " + action + " on " + ((DescriptiveBy) by).getDescription());
+			report.log("About to " + action + " " + ((DescriptiveBy) by).getDescription());
 		}
 	}
 }
