@@ -8,15 +8,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class TestIssuesNoAbstraction {
+public class TestIssuesNoAbstraction extends AbstractTestCase{
 	private static final String REPO_NAME = "delme";
-	private WebDriver driver;
-	
-	@BeforeMethod
-	public void setup() {
-		driver = WebDriverFactory.buildDriver(WebDriverFactory.DriverType.CHROME);
-		driver.get("http://www.github.com");
-	}
 	
 	@Test
 	public void testCreateNewIssue() throws InterruptedException {

@@ -4,13 +4,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.testng.annotations.Test;
 
 import lombok.val;
 
 public class TestIssues extends AbstractTestCase {
 
-	private static final String REPO_NAME = "delme";
+	@Value("${repository}")
+	private String repo;
+	
+	@Value("${defaultUser}")
+	private String user;
+	
+	@Value("${defaultPassword}")
+	private String password;
+	
+	
 
 	@Test(description = "Test that when creating a new issue a single new issue is created")
 	public void testCreateNewIssue() throws IOException {
@@ -18,14 +28,14 @@ public class TestIssues extends AbstractTestCase {
 		step("Performing login");
 		val signIn  = introPage.clickOnSignInlnk();
 		val mainPage = signIn
-				.typeToUsernameOrEmailTb(getProp("user"))
-				.typeToPasswordTb(getProp("password"))
+				.typeToUsernameOrEmailTb(user)
+				.typeToPasswordTb(password)
 				.clickOnSignInBtnAndGoToMainPage();
 		
 		step("Finding repository");
 		val repoPage = mainPage.repositoriesWidget
-			.typeToFindARepositoryTb(REPO_NAME)
-			.clickOnRepo(getProp("user"), REPO_NAME);
+			.typeToFindARepositoryTb(repo)
+			.clickOnRepo(user, repo);
 		
 		step("Creating new issue");
 		val issues = repoPage.clickOnIssuesLnk();

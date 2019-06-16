@@ -4,21 +4,21 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WebDriverFactory {
-	
-	public static enum DriverType {
-		CHROME,FIREFOX,EDGE,SAFARI
-	}
-	
-	public static WebDriver buildDriver(DriverType type) {
+
+	private String browser;
+
+	public WebDriver build() {
 		WebDriver driver = null;
-		switch (type) {
-		case EDGE:
-		case FIREFOX:
-		case SAFARI:
-		case CHROME:
-			driver =  new ChromeDriver();
+		switch (browser) {
+		case "edge":
+		case "firefox":
+		case "safari":
+		case "chrome":
+			driver = new ChromeDriver();
 			break;
 		default:
 			break;
@@ -27,5 +27,13 @@ public class WebDriverFactory {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		return driver;
 	}
-	
+
+	public String getBrowser() {
+		return browser;
+	}
+
+	public void setBrowser(String browser) {
+		this.browser = browser;
+	}
+
 }
