@@ -12,7 +12,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class TestIssuesNoAbstraction {
-	
+
 	private static final String URL = "http://www.github.com";
 	private static final String REPO_NAME = "delme";
 	private static final String USER_NAME = "itaiag";
@@ -41,16 +41,16 @@ public class TestIssuesNoAbstraction {
 		driver.findElement(By.id("dashboard-repos-filter-left")).sendKeys(REPO_NAME);
 
 		// Select the issues
-		driver.findElement(By.cssSelector("a[href='/itaiag/delme']")).click();
+		driver.findElement(By.cssSelector(String.format("a[href='/%s/%s']", USER_NAME, REPO_NAME))).click();
 		driver.findElement(By.cssSelector("a[data-selected-links^='repo_issues']")).click();
 
-		// Click on new issue
+		// Click on new issue button
 		driver.findElement(By.partialLinkText("New issue")).click();
 
 		final String issueTitle = "issueTitle" + System.currentTimeMillis();
 		driver.findElement(By.id("issue_title")).sendKeys(issueTitle);
 		driver.findElement(By.id("issue_body")).sendKeys("This is the issue body");
-		// Sumiting the new issue
+		// Submitting the issue
 		driver.findElement(By.cssSelector("div.timeline-comment button.btn-primary")).click();
 
 		// Returning to the issues page.
