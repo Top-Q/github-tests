@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
 
+import com.automation.remarks.video.annotations.Video;
 import org.springframework.beans.factory.annotation.Value;
 import org.testng.annotations.Test;
 
@@ -21,7 +22,7 @@ public class TestIssues extends AbstractTestCase {
 	private String password;
 	
 	
-
+	@Video
 	@Test(description = "Test that when creating a new issue a single new issue is created")
 	public void testCreateNewIssue() throws IOException {
 //		@formatter:off

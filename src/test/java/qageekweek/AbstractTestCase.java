@@ -11,9 +11,10 @@ import org.testng.annotations.Listeners;
 
 import il.co.topq.difido.ReportDispatcher;
 import il.co.topq.difido.ReportManager;
+import qageekweek.infra.DifidoVideoReportListener;
 import qageekweek.po.IntroPage;
 
-@Listeners(il.co.topq.difido.ReportManagerHook.class)
+@Listeners({il.co.topq.difido.ReportManagerHook.class, DifidoVideoReportListener.class})
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"})
 public class AbstractTestCase extends AbstractTestNGSpringContextTests {
 

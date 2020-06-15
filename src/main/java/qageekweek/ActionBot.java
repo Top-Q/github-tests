@@ -46,7 +46,7 @@ public class ActionBot {
 
 	public int count(By by) {
 		report("count", by);
-		return driver.findElements(By.cssSelector("div[aria-label='Issues'] div.js-issue-row")).size();
+		return driver.findElements(by).size();
 	}
 
 	public ActionBot waitForVisible(By by) {
