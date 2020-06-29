@@ -34,5 +34,4 @@ public class SignInPage extends AbstractPage {
 		bot.clickOn(SIGNIN_BTN_BY);
 		return new MainPage(bot);
 	}
-
 }

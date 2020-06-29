@@ -2,11 +2,7 @@ package qageekweek;
 
 import java.io.File;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,59 +11,94 @@ import il.co.topq.difido.ReportManager;
 
 public class ActionBot {
 
-	protected ReportDispatcher report = ReportManager.getInstance();
+    private final static int DEFAULT_EXPLICIT_WAIT_TIME = 25;
 
-	private final WebDriver driver;
+    protected ReportDispatcher report = ReportManager.getInstance();
 
-	private WebDriverWait wait;
+    private int explicitTimeoutInSeconds = DEFAULT_EXPLICIT_WAIT_TIME;
 
-	public ActionBot(WebDriver driver) {
-		this.driver = driver;
-		this.wait = new WebDriverWait(driver, 10);
-	}
+    private WebDriver driver;
 
-	public ActionBot clickOn(By by) {
-		report("click on", by);
-		driver.findElement(by).click();
-		return this;
-	}
+    private By rootElementBy;
 
-	public ActionBot typeTo(By by, String keys) {
-		report("type to", by);
-		driver.findElement(by).sendKeys(keys);
-		return this;
-	}
+    private WebDriverWait wait;
 
-	public ActionBot typeTo(By by, Keys keys) {
-		report("type to" + keys, by);
-		driver.findElement(by).sendKeys(keys);
-		return this;
-	}
+    private SearchContext searcher;
 
-	public int count(By by) {
-		report("count", by);
-		return driver.findElements(by).size();
-	}
+    public ActionBot(WebDriver driver, By root) {
+        init(driver, driver.findElement(root), root);
+    }
 
-	public ActionBot waitForVisible(By by) {
-		report("wait for visibility of", by);
-		wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-		return this;
-	}
+    public ActionBot(ActionBot actionBot, By root) {
+        init(actionBot.driver, actionBot.driver.findElement(root), root);
+    }
 
-	public ActionBot takeScreenshot(String description) {
-		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		report.addImage(scrFile, description);
-		return this;
-	}
+    private ActionBot(ActionBot actionBot, WebElement root) {
+        init(actionBot.driver, root, null);
+    }
 
-	public ActionBot waitForVisible(By by, int timeoutInSec) {
-		return this;
-	}
+    public ActionBot(WebDriver driver) {
+        init(driver, driver, null);
+    }
 
-	private void report(String action, By by) {
-		if (by instanceof DescriptiveBy) {
-			report.log("About to " + action + " " + ((DescriptiveBy) by).getDescription());
-		}
-	}
+    private void init(WebDriver driver, SearchContext root, By rootElementBy) {
+        this.driver = driver;
+        this.searcher = root;
+        this.rootElementBy = rootElementBy;
+        initWebDriverWait();
+    }
+
+    private void initWebDriverWait() {
+        this.wait = new WebDriverWait(driver, explicitTimeoutInSeconds);
+    }
+
+    public ActionBot clickOn(By by) {
+        report("click on", by);
+        searcher.findElement(by).click();
+        return this;
+    }
+
+    public ActionBot typeTo(By by, String keys) {
+        report("type to", by);
+        searcher.findElement(by).sendKeys(keys);
+        return this;
+    }
+
+    public ActionBot typeTo(By by, Keys keys) {
+        report("type to" + keys, by);
+        searcher.findElement(by).sendKeys(keys);
+        return this;
+    }
+
+    public int count(By by) {
+        report("count", by);
+        return searcher.findElements(by).size();
+    }
+
+    public ActionBot waitForVisible(By by) {
+        report("wait for visibility of", by);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        return this;
+    }
+
+    public ActionBot takeScreenshot(String description) {
+        File scrFile = ((TakesScreenshot) searcher).getScreenshotAs(OutputType.FILE);
+        report.addImage(scrFile, description);
+        return this;
+    }
+
+    public ActionBot waitForVisible(By by, int timeoutInSec) {
+        return this;
+    }
+
+    private void report(String action, By by) {
+        if (by instanceof DescriptiveBy) {
+            report.log("About to " + action + " " + ((DescriptiveBy) by).getDescription());
+        }
+    }
+
+    public WebDriver getDriver() {
+        return this.driver;
+    }
+
 }

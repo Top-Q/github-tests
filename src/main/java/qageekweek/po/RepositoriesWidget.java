@@ -20,7 +20,7 @@ public class RepositoriesWidget extends AbstractPage {
 	
 	public RepositoryCodePage clickOnRepo(String owner, String repoName) {
 		bot.clickOn(By.cssSelector(String.format("a[href='/%s/%s']", owner,repoName)));
-		return new RepositoryCodePage(bot);
+		return new RepositoryCodePage(new ActionBot(bot.getDriver()));
 	}
 
 	@Override
