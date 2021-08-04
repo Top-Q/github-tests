@@ -27,7 +27,7 @@ public class NewIssuePage extends AbstractRepositoryPage {
 		return this;
 	}
 	
-	public IssuePage clickOnSubmitIssueBtn() {
+	public IssuePage clickOnSubmitIssueBtnAndGoToIssuePage() {
 		bot.clickOn(SUBMIT_NEW_ISSUE_BY);
 		return new IssuePage(bot);
 	}

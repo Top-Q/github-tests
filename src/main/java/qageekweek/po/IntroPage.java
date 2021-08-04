@@ -7,13 +7,13 @@ import qageekweek.DBy;
 
 public class IntroPage extends AbstractPage {
 
-	private static final By SIGNIN_BY = DBy.cssSelector("a[href='/login']","Sigin in link");
+	private static final By SIGNIN_BY = DBy.cssSelector("a[href='/login']","Sign-in in link");
 	
 	public IntroPage(WebDriver driver) {
 		super(driver);
 	}
 	
-	public SignInPage clickOnSignInlnk() {
+	public SignInPage clickOnSignInlnkAndGoToSignInPage() {
 		bot.clickOn(SIGNIN_BY);
 		return new SignInPage(bot);
 	}

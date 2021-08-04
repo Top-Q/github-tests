@@ -16,7 +16,7 @@ public class RepositoryIssuesPage extends AbstractRepositoryPage{
 		super(bot);
 	}
 	
-	public NewIssuePage clickOnNewIssueBtn() {
+	public NewIssuePage clickOnNewIssueBtnAndGoToNewIssuePage() {
 		bot.clickOn(NEW_ISSUE_BTN_BY);
 		return new NewIssuePage(bot);
 	}
@@ -28,6 +28,10 @@ public class RepositoryIssuesPage extends AbstractRepositoryPage{
 	}
 	
 	public int getNumberOfIssues() {
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+		}
 		return bot.count(NUMBER_OF_ISSUES_BY);
 	}
 	

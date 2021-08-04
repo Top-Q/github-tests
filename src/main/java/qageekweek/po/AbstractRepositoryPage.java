@@ -15,7 +15,7 @@ public abstract class AbstractRepositoryPage extends AbstractPage {
 	}
 
 	
-	public RepositoryIssuesPage clickOnIssuesLnk() {
+	public RepositoryIssuesPage clickOnIssuesLnkAndGoToIssuesPage() {
 		bot.clickOn(ISSUES_LNK_BY);
 		return new RepositoryIssuesPage(bot);
 	}
