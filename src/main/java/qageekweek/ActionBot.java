@@ -1,6 +1,7 @@
 package qageekweek;
 
 import java.io.File;
+import java.time.Duration;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -49,7 +50,7 @@ public class ActionBot {
     }
 
     private void initWebDriverWait() {
-        this.wait = new WebDriverWait(driver, explicitTimeoutInSeconds);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(explicitTimeoutInSeconds));
     }
 
     public ActionBot clickOn(By by) {
