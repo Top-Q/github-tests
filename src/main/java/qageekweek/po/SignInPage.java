@@ -3,13 +3,14 @@ package qageekweek.po;
 import org.openqa.selenium.By;
 
 import qageekweek.ActionBot;
-import qageekweek.DBy;
+
+import static qageekweek.DBy.*;
 
 public class SignInPage extends AbstractPage {
 
-	private static final By LOGIN_TB_BY = DBy.id("login_field", "Login tb");
-	private static final By PASSWORD_TB_BY = DBy.id("password", "Password tb");
-	private static final By SIGNIN_BTN_BY = DBy.name("commit", "Siging btn");
+	private static final By LOGIN_TB_BY = id("login_field", "Login tb");
+	private static final By PASSWORD_TB_BY = id("password", "Password tb");
+	private static final By SIGNIN_BTN_BY = name("commit", "Siging btn");
 
 	public SignInPage(ActionBot bot) {
 		super(bot);
@@ -34,4 +35,6 @@ public class SignInPage extends AbstractPage {
 		bot.clickOn(SIGNIN_BTN_BY);
 		return new MainPage(bot);
 	}
+
+
 }
